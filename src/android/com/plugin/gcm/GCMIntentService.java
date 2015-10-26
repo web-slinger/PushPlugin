@@ -86,6 +86,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		Intent notificationIntent = new Intent(this, PushHandlerActivity.class);
 		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		notificationIntent.addFlags(Notification.FLAG_ONGOING_EVENT);
+		notificationIntent.addFlags(Notification.FLAG_NO_CLEAR);
 		notificationIntent.putExtra("pushBundle", extras);
 
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -106,6 +108,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 				.setContentTitle(extras.getString("title"))
 				.setTicker(extras.getString("title"))
 				.setContentIntent(contentIntent)
+				.setOngoing(true)
 				.setAutoCancel(true);
 
 		String message = extras.getString("message");
