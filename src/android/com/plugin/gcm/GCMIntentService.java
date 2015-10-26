@@ -10,7 +10,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
+// Below for support before SDKLevel < 11
+// import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -99,17 +100,18 @@ public class GCMIntentService extends GCMBaseIntentService {
 				defaults = Integer.parseInt(extras.getString("defaults"));
 			} catch (NumberFormatException e) {}
 		}
-		
-		NotificationCompat.Builder mBuilder =
-			new NotificationCompat.Builder(context)
-				.setDefaults(defaults)
-				.setSmallIcon(context.getApplicationInfo().icon)
-				.setWhen(System.currentTimeMillis())
-				.setContentTitle(extras.getString("title"))
-				.setTicker(extras.getString("title"))
-				.setContentIntent(contentIntent)
-				.setOngoing(true)
-				.setAutoCancel(true);
+		// Below for support before SDKLevel < 11
+		// NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+			
+		Notification.Builder mBuilder = new Notification.Builder(context)
+			.setDefaults(defaults)
+			.setSmallIcon(context.getApplicationInfo().icon)
+			.setWhen(System.currentTimeMillis())
+			.setContentTitle(extras.getString("title"))
+			.setTicker(extras.getString("title"))
+			.setContentIntent(contentIntent)
+			.setOngoing(true)
+			.setAutoCancel(true);
 
 		String message = extras.getString("message");
 		if (message != null) {
