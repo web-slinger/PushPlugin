@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 // Below for support before SDKLevel < 11
-// import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -100,10 +100,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 				defaults = Integer.parseInt(extras.getString("defaults"));
 			} catch (NumberFormatException e) {}
 		}
+		
+		// Notification.Builder mBuilder = new Notification.Builder(context)
 		// Below for support before SDKLevel < 11
-		// NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-			
-		Notification.Builder mBuilder = new Notification.Builder(context)
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
 			.setDefaults(defaults)
 			.setSmallIcon(context.getApplicationInfo().icon)
 			.setWhen(System.currentTimeMillis())
